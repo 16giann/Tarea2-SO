@@ -1,7 +1,8 @@
 # Torneo de Komikan Concurrente - Tarea 2 SO
 # Uso: make | make test | make tsan | make asan | make clean
 CC     = gcc
-# Banderas EXACTAS exigidas por la rubrica
+
+# Banderas exigidas por la rubrica
 CFLAGS = -Wall -Wextra -std=c17 -pthread
 
 all: torneo
