@@ -1,0 +1,13 @@
+# Ejemplo: el Puma parte acorralado en la esquina entonces ganan los PERROS.
+# Uso: ./torneo 2 1 config_acorralado.txt
+SEED 1
+DELAY_MIN 50
+DELAY_MAX 100
+PUMA_INIT 0 0
+DOG 0 0 1
+DOG 1 1 0
+DOG 2 1 1
+DOG 3 0 2
+DOG 4 2 0
+DOG 5 2 2
+BOARD_EVERY 1

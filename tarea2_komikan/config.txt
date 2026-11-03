@@ -1,0 +1,20 @@
+# config.txt - son los Parametros iniciales del torneo de Komikan
+# Formato: CLAVE valor 
+
+SEED 42            # semilla aleatoria (misma semilla = mismos retardos)
+DELAY_MIN 50       # retardo minimo por movimiento (ms)
+DELAY_MAX 300      # retardo maximo por movimiento (ms)
+PUMA_INIT 2 2      # casilla inicial del Puma: "x y" o TRONO_TOP / TRONO_LEFT / TRONO_RIGHT
+
+# Disposicion inicial de los perros (esopcional). Si no se define ningun DOG,
+# se usa la disposicion por defecto de 12 perros en las filas de abajo.
+# DOG 0 0 0
+# DOG 1 1 0
+
+MAX_MOVES 300      # tope de movimientos por partida (empate si se alcanza); 0 = sin tope
+BOARD_EVERY 10     # imprime el tablero cada k movimientos (1 = en cada movimiento)
+VERBOSE 1          # 1 = registra cada movimiento (aceptado/rechazado); 0 = solo eventos de mesa
+ARRIVAL_MS 200     # ventana de llegada aleatoria de los jugadores (ms)
+# LOG_FILE torneo.log   # ademas de la consola, escribe el registro en un archivo
+# FAULT_PUMA 500        # simula la caida abrupta del Puma a los 500 ms
+# FAULT_DOG 3 800       # simula la caida abrupta del Perro 3 a los 800 ms
