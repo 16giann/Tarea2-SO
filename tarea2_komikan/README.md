@@ -1,10 +1,10 @@
 # Torneo de Komikan Concurrente — Tarea 2, Sistemas Operativos
 
 **Integrantes:** Gianfranco Caleni · Gabriel Guaiquipan
-**Lenguaje:** C (C17) · **Sincronización:** `pthread_mutex_t`, `pthread_cond_t`, `sem_t` POSIX · **Plataformas:** Linux y macOS
+**Lenguaje:** C · **Sincronización:** `pthread_mutex_t`, `pthread_cond_t`, `sem_t` POSIX · **Plataformas:** Linux y macOS
 
 ## 1. Compilación
-Con las banderas exigidas por la rúbrica (compila sin warnings):
+Con las banderas exigidas por la rúbrica:
 ```bash
 gcc -Wall -Wextra -std=c17 -pthread -o torneo torneo.c
 ```
@@ -56,7 +56,7 @@ Líneas `CLAVE valor(es)` (también `CLAVE=valor`), `#` = comentario, todas opci
 - Sin turnos: cada ficha repite *decidir → esperar retardo aleatorio → intentar mover*.
 - Supuestos (la figura del enunciado no estaba disponible): adyacencia de 8 vecinos en la grilla; conexiones del trono `TOP–(2,4)`, `TOP–LEFT`, `TOP–RIGHT`, `LEFT–(1,4)`, `RIGHT–(3,4)`. Se cambian en `build_tables()`. Se agregó un tope de movimientos (empate) para garantizar que toda partida termine.
 
-## 5. Decisiones de sincronización (resumen; detalle en `informe.pdf`)
+## 5. Decisiones de sincronización (resumen; detalle en informe)
 - **Juez como único escritor del tablero.** Las 13 fichas de una mesa envían solicitudes a una cola FIFO (protegida por el mutex de la mesa) y se bloquean en su propia `pthread_cond_t`. El Juez las valida y aplica en orden de llegada: la primera ficha que llega a una casilla libre se la queda; las demás reciben `RECHAZADO`. Elimina las condiciones de carrera sobre el tablero.
 - **Límite de mesas:** `sem_t` POSIX nombrado con valor `M`. El Matchmaker hace `sem_wait` antes de abrir cada mesa; si no hay mesa libre queda bloqueado en el kernel (espera **pasiva**, ~0,8 % de CPU medido con N=20, M=2). El Juez hace `sem_post` al cerrar. Se usa semáforo *nombrado* porque macOS no implementa `sem_init`, y se hace `sem_unlink` de inmediato para no dejar huérfanos.
 - **Prevención de deadlock:** un solo mutex por mesa que nadie mantiene mientras espera otro recurso; jerarquía de locks mesa → log.
